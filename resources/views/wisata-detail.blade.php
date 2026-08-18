@@ -1,6 +1,10 @@
 @extends('layouts.public')
 
 @section('title', $wisata->nama_wisata)
+@section('meta_description', Str::limit(strip_tags($wisata->deskripsi), 160))
+@if($wisata->gambar)
+    @section('meta_image', Storage::disk('public')->exists($wisata->gambar) ? Storage::url($wisata->gambar) : (Str::startsWith($wisata->gambar, 'http') ? $wisata->gambar : asset('images/hero-bg-2.jpg')))
+@endif
 
 @section('content')
 <div class="pt-24 pb-16 bg-gray-50 min-h-screen">
@@ -28,7 +32,7 @@
         </nav>
 
         <!-- Main Content Card -->
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden" data-aos="fade-up">
             <!-- Image Header -->
             <div class="relative h-64 sm:h-96 w-full bg-gray-100">
                 @if($wisata->foto_url && Storage::disk('public')->exists($wisata->foto_url))
@@ -47,14 +51,18 @@
 
             <!-- Content Body -->
             <div class="p-6 sm:p-10">
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">{{ $wisata->nama_wisata }}</h1>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4" data-aos="fade-right" data-aos-delay="100">{{ $wisata->nama_wisata }}</h1>
                 
-                <div class="flex items-center text-gray-600 mb-8 pb-8 border-b border-gray-100">
+                <div class="flex items-center text-gray-600 mb-8 pb-8 border-b border-gray-100" data-aos="fade-right" data-aos-delay="200">
                     <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                    <span class="font-medium">{{ $wisata->lokasi ?? 'Lokasi belum disetel' }}</span>
+                    @if($wisata->url_lokasi)
+                        <a href="{{ $wisata->url_lokasi }}" target="_blank" rel="noopener noreferrer" class="font-medium hover:text-primary hover:underline transition-colors">{{ $wisata->lokasi ?? 'Lokasi belum disetel' }}</a>
+                    @else
+                        <span class="font-medium">{{ $wisata->lokasi ?? 'Lokasi belum disetel' }}</span>
+                    @endif
                 </div>
 
-                <div class="prose prose-lg prose-green max-w-none text-gray-700 leading-relaxed">
+                <div class="prose prose-lg md:prose-xl prose-green max-w-none text-gray-700 text-justify leading-relaxed prose-p:leading-loose prose-p:mb-6 first-letter:text-6xl first-letter:font-black first-letter:text-secondary first-letter:float-left first-letter:mr-3 first-letter:mt-2" data-aos="fade-up" data-aos-delay="300">
                     {!! nl2br(e($wisata->deskripsi)) !!}
                 </div>
                 

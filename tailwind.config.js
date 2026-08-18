@@ -8,11 +8,20 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
+    safelist: [
+        {
+            pattern: /(bg|text|border)-(primary|secondary|accent|gray-500|gray-600)/,
+            variants: ['hover', 'group-hover'],
+        },
+        {
+            pattern: /bg-(primary|secondary|accent|gray-500|gray-600)\/(20|90)/,
+        }
+    ],
 
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto', 'Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 primary: {

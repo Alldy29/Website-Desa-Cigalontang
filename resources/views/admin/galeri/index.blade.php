@@ -5,9 +5,9 @@
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
         <div class="flex justify-between items-center mb-6">
             <h3 class="text-lg font-bold text-gray-900">Album Galeri</h3>
-            <a href="{{ route('admin.galeri.create') }}" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm">
+            <a href="{{ route('admin.galeri.create') }}" class="bg-primary hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-2 shadow-lg shadow-primary/30">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                Unggah Foto Baru
+                Tambah Galeri
             </a>
         </div>
 
@@ -42,8 +42,8 @@
             @endforelse
         </div>
         
-        <div class="mt-6">
-            {{ $galeris->links() }}
+        <div class="mt-8 flex justify-center">
+            {{ $galeris->links('vendor.pagination.custom') }}
         </div>
     </div>
 </x-app-layout>

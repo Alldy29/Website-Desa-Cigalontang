@@ -12,10 +12,17 @@ use Illuminate\Support\Str;
 
 class UmkmProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = UmkmProduct::with('kategoriUmkm')->latest()->paginate(10);
-        return view('admin.umkm.produk.index', compact('products'));
+        $search = $request->input('search');
+        $products = UmkmProduct::with('kategoriUmkm')
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_produk', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(8)
+            ->appends(['search' => $search]);
+        return view('admin.umkm.produk.index', compact('products', 'search'));
     }
 
     public function create()
@@ -32,6 +39,7 @@ class UmkmProductController extends Controller
             'nama_produk' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric',
+            'satuan' => 'nullable|in:Kg,Pcs',
             'gambar' => 'required|image|mimes:jpg,jpeg,png|max:5120',
             'mitra_umkm_id' => 'nullable|exists:mitra_umkms,id',
             'link_marketplace' => 'nullable|url|max:255',
@@ -45,6 +53,7 @@ class UmkmProductController extends Controller
             'slug' => Str::slug($request->nama_produk),
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
+            'satuan' => $request->satuan,
             'gambar' => $fotoPath,
             'mitra_umkm_id' => $request->mitra_umkm_id,
             'link_marketplace' => $request->link_marketplace,
@@ -67,6 +76,7 @@ class UmkmProductController extends Controller
             'nama_produk' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric',
+            'satuan' => 'nullable|in:Kg,Pcs',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
             'mitra_umkm_id' => 'nullable|exists:mitra_umkms,id',
             'link_marketplace' => 'nullable|url|max:255',
@@ -87,6 +97,7 @@ class UmkmProductController extends Controller
             'slug' => Str::slug($request->nama_produk),
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
+            'satuan' => $request->satuan,
             'gambar' => $fotoPath,
             'mitra_umkm_id' => $request->mitra_umkm_id,
             'link_marketplace' => $request->link_marketplace,

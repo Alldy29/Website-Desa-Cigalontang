@@ -3,12 +3,25 @@
     @section('header_title', 'Manajemen Destinasi Wisata')
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <h3 class="text-lg font-bold text-gray-900">Daftar Destinasi Wisata</h3>
-            <a href="{{ route('admin.wisata.create') }}" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                Tambah Destinasi
-            </a>
+            <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <form action="{{ route('admin.wisata.index') }}" method="GET" class="relative w-full sm:w-64">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari destinasi..." oninput="clearTimeout(this.timer); this.timer = setTimeout(() => { this.form.submit(); }, 500);" class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block pl-10 p-2.5 shadow-sm">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                </form>
+                <script>
+                    if (performance.getEntriesByType("navigation")[0]?.type === "reload" && window.location.search.includes('search')) {
+                        window.location.href = window.location.pathname;
+                    }
+                </script>
+                <a href="{{ route('admin.wisata.create') }}" class="shrink-0 bg-primary hover:bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/30">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    Tambah Destinasi
+                </a>
+            </div>
         </div>
 
         @if(session('success'))
@@ -36,7 +49,7 @@
                     </div>
 
                     <div class="flex items-center justify-between pt-4 border-t border-gray-50">
-                        <a href="{{ route('admin.wisata.edit', $wisata->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-blue-600 transition-colors mr-2"> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Edit</a>
+                        <a href="{{ route('admin.wisata.edit', $wisata->id) }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 hover:text-primary transition-colors mr-2"> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg> Edit</a>
                         <form action="{{ route('admin.wisata.destroy', $wisata->id) }}" method="POST" onsubmit="return confirm('Hapus destinasi wisata ini?');">
                             @csrf
                             @method('DELETE')
@@ -54,7 +67,7 @@
         </div>
         
         <div class="mt-6">
-            {{ $wisatas->links() }}
+            {{ $wisatas->onEachSide(1)->links('vendor.pagination.custom') }}
         </div>
     </div>
 </x-app-layout>

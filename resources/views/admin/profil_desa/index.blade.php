@@ -20,13 +20,38 @@
                     <p class="text-sm text-gray-500">Konten ini akan ditampilkan di halaman Profil dan Beranda.</p>
                 </div>
                 <div class="p-6 space-y-6">
-                    <div>
-                        <label for="sejarah_singkat" class="block mb-2 text-sm font-medium text-gray-900">Sejarah Singkat (Tampil di Beranda)</label>
-                        <textarea name="sejarah_singkat" id="sejarah_singkat" rows="3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-3">{{ $settings['sejarah_singkat'] ?? '' }}</textarea>
-                    </div>
-                    <div>
-                        <label for="sejarah_lengkap" class="block mb-2 text-sm font-medium text-gray-900">Sejarah Lengkap (Tampil di Halaman Profil)</label>
-                        <textarea name="sejarah_lengkap" id="sejarah_lengkap" rows="6" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-3">{{ $settings['sejarah_lengkap'] ?? '' }}</textarea>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2">
+                            <label for="sejarah_lengkap" class="block mb-2 text-sm font-medium text-gray-900">Sejarah Lengkap (Tampil di Halaman Profil)</label>
+                            <textarea name="sejarah_lengkap" id="sejarah_lengkap" rows="8" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-3">{{ $settings['sejarah_lengkap'] ?? '' }}</textarea>
+                        </div>
+                        <div class="md:col-span-1 flex flex-col" x-data="{ previewUrl: '' }">
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Foto Kegiatan / Sejarah</label>
+                            <div class="mt-1 flex-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl">
+                                <div class="space-y-1 text-center flex flex-col justify-center w-full">
+                                    <template x-if="previewUrl">
+                                        <img :src="previewUrl" alt="Preview" class="mx-auto h-24 w-auto object-cover rounded-lg mb-4">
+                                    </template>
+                                    <template x-if="!previewUrl">
+                                        <div>
+                                            @if(isset($settings['foto_sejarah']) && $settings['foto_sejarah'] != '')
+                                                <img src="{{ Storage::url($settings['foto_sejarah']) }}" alt="Foto Sejarah" class="mx-auto h-24 w-auto object-cover rounded-lg mb-4">
+                                            @else
+                                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                            @endif
+                                        </div>
+                                    </template>
+                                    <div class="flex text-sm text-gray-600 justify-center">
+                                        <label for="foto_sejarah" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-green-700">
+                                            <span>Upload a file</span>
+                                            <input id="foto_sejarah" name="foto_sejarah" type="file" class="sr-only" @change="previewUrl = URL.createObjectURL($event.target.files[0])">
+                                        </label>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -41,39 +66,7 @@
                 </div>
             </div>
 
-            <!-- Sambutan Kades -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-                <div class="bg-gray-50 border-b border-gray-100 p-5">
-                    <h3 class="text-lg font-bold text-gray-900">Sambutan Kepala Desa</h3>
-                </div>
-                <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="md:col-span-1">
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Foto Kepala Desa</label>
-                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl">
-                                <div class="space-y-1 text-center">
-                                    @if(isset($settings['foto_kades']) && $settings['foto_kades'] != '')
-                                        <img src="{{ Storage::url($settings['foto_kades']) }}" alt="Foto Kades" class="mx-auto h-32 w-32 object-cover rounded-full mb-4">
-                                    @else
-                                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                                    @endif
-                                    <div class="flex text-sm text-gray-600 justify-center">
-                                        <label for="foto_kades" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-green-700">
-                                            <span>Upload a file</span>
-                                            <input id="foto_kades" name="foto_kades" type="file" class="sr-only">
-                                        </label>
-                                    </div>
-                                    <p class="text-xs text-gray-500">PNG, JPG up to 5MB</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <label for="sambutan_kades" class="block mb-2 text-sm font-medium text-gray-900">Isi Sambutan (Tampil di Beranda)</label>
-                            <textarea name="sambutan_kades" id="sambutan_kades" rows="7" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-3">{{ $settings['sambutan_kades'] ?? '' }}</textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Geografi & Batas -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">

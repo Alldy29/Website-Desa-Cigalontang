@@ -8,10 +8,18 @@ use Illuminate\Http\Request;
 
 class AspirasiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $aspirasis = Aspirasi::latest()->paginate(15);
-        return view('admin.aspirasi.index', compact('aspirasis'));
+        $search = $request->input('search');
+        $aspirasis = Aspirasi::when($search, function ($query, $search) {
+                return $query->where('nama', 'like', "%{$search}%")
+                             ->orWhere('jenis_pesan', 'like', "%{$search}%")
+                             ->orWhere('pesan', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(15)
+            ->appends(['search' => $search]);
+        return view('admin.aspirasi.index', compact('aspirasis', 'search'));
     }
 
     public function show(Aspirasi $aspirasi)

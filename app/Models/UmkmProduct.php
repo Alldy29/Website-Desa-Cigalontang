@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UmkmProduct extends Model
 {
-    protected $fillable = ['nama_produk', 'slug', 'harga', 'kategori_umkm_id', 'mitra_umkm_id', 'deskripsi', 'gambar', 'link_marketplace'];
+    protected $fillable = ['nama_produk', 'slug', 'harga', 'satuan', 'kategori_umkm_id', 'mitra_umkm_id', 'deskripsi', 'gambar', 'link_marketplace'];
 
     public function kategoriUmkm()
     {

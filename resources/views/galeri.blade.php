@@ -4,26 +4,29 @@
 
 @section('content')
 <!-- Premium Hero Section -->
-<div class="relative bg-gradient-to-br from-green-900 via-primary to-emerald-800 overflow-hidden pt-28 pb-28 flex flex-col justify-center items-center">
+<div class="relative bg-gradient-to-br from-green-900 via-primary to-emerald-800 pt-16 pb-28 flex flex-col justify-center items-center overflow-hidden">
     <!-- Decorative background shapes -->
     <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
     <div class="absolute bottom-0 left-10 w-72 h-72 bg-emerald-400/20 rounded-full blur-2xl"></div>
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <span class="inline-block py-1 px-3 rounded-full bg-white/20 text-white text-xs font-bold tracking-widest uppercase mb-3 backdrop-blur-sm border border-white/30">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white text-sm font-semibold tracking-widest uppercase mb-6 border border-white/30 backdrop-blur-md shadow-sm" data-aos="fade-down">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             Dokumentasi
-        </span>
-        <h1 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl lg:text-5xl mb-3">Galeri Desa</h1>
-        <p class="text-lg text-primary-100 max-w-2xl mx-auto text-white/90">Kumpulan momen, kegiatan, dan pesona alam yang terekam dalam perjalanan membangun Desa Cigalontang.</p>
+        </div>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl md:text-5xl drop-shadow-lg" data-aos="zoom-in-up" data-aos-delay="200">Galeri Desa</h1>
+        <p class="mt-4 text-base md:text-lg text-green-50 max-w-2xl mx-auto drop-shadow leading-relaxed" data-aos="zoom-in-up" data-aos-delay="400">Kumpulan momen, kegiatan, dan pesona alam yang terekam dalam perjalanan membangun Desa Cigalontang.</p>
     </div>
 </div>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 relative z-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 mb-12 relative z-20">
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="p-8 md:p-12 bg-gray-50/30">
     <!-- Gallery Masonry Grid -->
     <div class="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4" id="katalog-galeri">
         
         @foreach($galeris as $galeri)
-        <div class="galeri-item relative overflow-hidden rounded-3xl bg-gray-100 shadow-sm border border-gray-100 group cursor-pointer break-inside-avoid">
+        <div class="galeri-item relative overflow-hidden rounded-3xl bg-gray-100 shadow-sm border border-gray-100 group cursor-pointer break-inside-avoid" data-aos="zoom-in" data-aos-delay="{{ ($loop->index % 4) * 100 }}">
             @if($galeri->foto_url && Storage::disk('public')->exists($galeri->foto_url))
                 <img src="{{ Storage::url($galeri->foto_url) }}" alt="{{ $galeri->judul }}" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700">
             @elseif($galeri->foto_url)
@@ -43,7 +46,11 @@
     </div>
 
     <!-- Pagination Modern -->
-    {{ $galeris->onEachSide(1)->links('vendor.pagination.custom') }}
+    <div class="mt-8">
+        {{ $galeris->onEachSide(1)->links('vendor.pagination.custom') }}
+    </div>
+        </div>
+    </div>
 </div>
 
 <!-- Lightbox Modal -->

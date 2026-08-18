@@ -17,7 +17,7 @@ class ProfilDesaController extends Controller
 
     public function update(Request $request)
     {
-        $data = $request->except(['_token', 'foto_kades']);
+        $data = $request->except(['_token', 'foto_sejarah']);
         
         // Simpan data text biasa
         foreach ($data as $key => $value) {
@@ -27,20 +27,20 @@ class ProfilDesaController extends Controller
             );
         }
 
-        // Handle upload foto kades jika ada
-        if ($request->hasFile('foto_kades')) {
+        // Handle upload foto sejarah jika ada
+        if ($request->hasFile('foto_sejarah')) {
             $request->validate([
-                'foto_kades' => 'image|mimes:jpg,jpeg,png|max:5120'
+                'foto_sejarah' => 'image|mimes:jpg,jpeg,png|max:5120'
             ]);
 
-            $oldFoto = Setting::where('key', 'foto_kades')->first();
-            if ($oldFoto && $oldFoto->value && Storage::disk('public')->exists($oldFoto->value)) {
-                Storage::disk('public')->delete($oldFoto->value);
+            $oldFotoSejarah = Setting::where('key', 'foto_sejarah')->first();
+            if ($oldFotoSejarah && $oldFotoSejarah->value && Storage::disk('public')->exists($oldFotoSejarah->value)) {
+                Storage::disk('public')->delete($oldFotoSejarah->value);
             }
 
-            $path = $request->file('foto_kades')->store('profil', 'public');
+            $path = $request->file('foto_sejarah')->store('profil', 'public');
             Setting::updateOrCreate(
-                ['key' => 'foto_kades'],
+                ['key' => 'foto_sejarah'],
                 ['value' => $path]
             );
         }

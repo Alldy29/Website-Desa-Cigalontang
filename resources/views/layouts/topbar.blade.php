@@ -14,13 +14,13 @@
         <!-- Profile Dropdown -->
         <x-dropdown align="right" width="48">
             <x-slot name="trigger">
-                <button class="flex items-center gap-2 pl-2 pr-3 py-1.5 border border-slate-200 rounded-full bg-white hover:bg-slate-50 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-300">
-                    <div class="w-7 h-7 rounded-full bg-slate-800 text-white flex items-center justify-center shadow-inner">
+                <button class="flex items-center gap-2 pl-2 pr-3 py-1.5 border border-gray-200 rounded-full bg-white hover:bg-gray-50 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary">
+                    <div class="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center shadow-inner">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     </div>
                     <div class="flex flex-col items-start ml-1">
-                        <span class="text-sm font-bold text-slate-700 leading-tight">{{ Auth::user()->name }}</span>
-                        <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wide">{{ Auth::user()->roles->pluck('name')->implode(', ') }}</span>
+                        <span class="text-sm font-bold text-gray-700 leading-tight">{{ Auth::user()->name }}</span>
+                        <span class="text-[10px] font-medium text-primary uppercase tracking-wide">{{ Auth::user()->roles->pluck('name')->implode(', ') }}</span>
                     </div>
                     <svg class="w-4 h-4 text-slate-400 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>

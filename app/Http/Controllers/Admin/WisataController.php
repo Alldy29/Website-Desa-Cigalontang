@@ -4,20 +4,29 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Wisata;
+use App\Models\WisataKategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class WisataController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $wisatas = Wisata::paginate(10);
-        return view('admin.wisata.index', compact('wisatas'));
+        $search = $request->input('search');
+        $wisatas = Wisata::when($search, function ($query, $search) {
+                return $query->where('nama_wisata', 'like', "%{$search}%")
+                             ->orWhere('kategori', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10)
+            ->appends(['search' => $search]);
+        return view('admin.wisata.index', compact('wisatas', 'search'));
     }
 
     public function create()
     {
-        return view('admin.wisata.create');
+        $kategoris = WisataKategori::orderBy('nama', 'asc')->get();
+        return view('admin.wisata.create', compact('kategoris'));
     }
 
     public function store(Request $request)
@@ -26,6 +35,7 @@ class WisataController extends Controller
             'nama_wisata' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'lokasi' => 'nullable|string|max:255',
+            'url_lokasi' => 'nullable|url|max:255',
             'kategori' => 'required|string|max:255',
             'foto_url' => 'required|image|mimes:jpg,jpeg,png|max:5120'
         ]);
@@ -36,6 +46,7 @@ class WisataController extends Controller
             'nama_wisata' => $request->nama_wisata,
             'deskripsi' => $request->deskripsi,
             'lokasi' => $request->lokasi,
+            'url_lokasi' => $request->url_lokasi,
             'kategori' => $request->kategori,
             'foto_url' => $fotoPath,
         ]);
@@ -45,7 +56,8 @@ class WisataController extends Controller
 
     public function edit(Wisata $wisatum)
     {
-        return view('admin.wisata.edit', compact('wisatum'));
+        $kategoris = WisataKategori::orderBy('nama', 'asc')->get();
+        return view('admin.wisata.edit', compact('wisatum', 'kategoris'));
     }
 
     public function update(Request $request, Wisata $wisatum)
@@ -54,6 +66,7 @@ class WisataController extends Controller
             'nama_wisata' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'lokasi' => 'nullable|string|max:255',
+            'url_lokasi' => 'nullable|url|max:255',
             'kategori' => 'required|string|max:255',
             'foto_url' => 'nullable|image|mimes:jpg,jpeg,png|max:5120'
         ]);
@@ -71,6 +84,7 @@ class WisataController extends Controller
             'nama_wisata' => $request->nama_wisata,
             'deskripsi' => $request->deskripsi,
             'lokasi' => $request->lokasi,
+            'url_lokasi' => $request->url_lokasi,
             'kategori' => $request->kategori,
             'foto_url' => $fotoPath,
         ]);

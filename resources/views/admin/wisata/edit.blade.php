@@ -25,38 +25,51 @@
                 <!-- Lokasi -->
                 <div>
                     <label for="lokasi" class="block mb-2 text-sm font-medium text-gray-900">Lokasi / Alamat Lengkap</label>
-                    <input type="text" name="lokasi" id="lokasi" value="{{ old('lokasi', $wisatum->lokasi) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-2.5">
+                    <input type="text" name="lokasi" id="lokasi" value="{{ old('lokasi', $wisatum->lokasi) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="Contoh: Dusun Karanganyar RT 01/RW 02">
                     @error('lokasi') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
-                <!-- Kategori -->
+                <!-- URL Lokasi -->
                 <div>
-                    <label for="kategori" class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
-                    <select name="kategori" id="kategori" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-2.5" required>
-                        <option value="Wisata Alam" {{ old('kategori', $wisatum->kategori) == 'Wisata Alam' ? 'selected' : '' }}>Wisata Alam</option>
-                        <option value="Wisata Buatan" {{ old('kategori', $wisatum->kategori) == 'Wisata Buatan' ? 'selected' : '' }}>Wisata Buatan</option>
-                        <option value="Budaya & Sejarah" {{ old('kategori', $wisatum->kategori) == 'Budaya & Sejarah' ? 'selected' : '' }}>Budaya & Sejarah</option>
-                        <option value="Kesenian" {{ old('kategori', $wisatum->kategori) == 'Kesenian' ? 'selected' : '' }}>Kesenian Lokal</option>
-                    </select>
+                    <label for="url_lokasi" class="block mb-2 text-sm font-medium text-gray-900">URL Lokasi / Google Maps (Opsional)</label>
+                    <input type="url" name="url_lokasi" id="url_lokasi" value="{{ old('url_lokasi', $wisatum->url_lokasi) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-2.5" placeholder="https://maps.app.goo.gl/...">
+                    @error('url_lokasi') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+            </div>
+
+            <!-- Kategori -->
+            <div>
+                <label for="kategori" class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
+                <select name="kategori" id="kategori" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-primary focus:border-primary block w-full p-2.5" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    @foreach($kategoris as $kat)
+                        <option value="{{ $kat->nama }}" {{ old('kategori', $wisatum->kategori) == $kat->nama ? 'selected' : '' }}>{{ $kat->nama }}</option>
+                    @endforeach
+                </select>
                     @error('kategori') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
             </div>
 
             <!-- Foto -->
-            <div>
+            <div x-data="{ previewUrl: '' }">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Ganti Foto Utama (Opsional)</label>
-                @if($wisatum->foto_url)
-                    <div class="mb-3">
-                        <img src="{{ asset('storage/' . $wisatum->foto_url) }}" class="w-64 h-40 object-cover rounded-lg shadow-sm border border-gray-200">
-                    </div>
-                @endif
-                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-gray-50 focus:outline-none p-2.5" id="foto_url" name="foto_url" type="file" accept="image/*">
+                <div class="mb-3">
+                    <template x-if="previewUrl">
+                        <img :src="previewUrl" class="w-64 h-40 object-cover rounded-lg shadow-sm border border-gray-200">
+                    </template>
+                    <template x-if="!previewUrl">
+                        @if($wisatum->foto_url)
+                            <img src="{{ asset('storage/' . $wisatum->foto_url) }}" class="w-64 h-40 object-cover rounded-lg shadow-sm border border-gray-200">
+                        @endif
+                    </template>
+                </div>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-gray-50 focus:outline-none p-2.5" id="foto_url" name="foto_url" type="file" accept="image/*" @change="previewUrl = URL.createObjectURL($event.target.files[0])">
                 <p class="mt-1 text-xs text-gray-500">Biarkan kosong jika tidak ingin mengubah foto.</p>
                 @error('foto_url') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div class="flex items-center gap-4 pt-4 border-t border-gray-100">
-                <button type="submit" class="text-white bg-primary hover:bg-green-700 font-medium rounded-xl text-sm px-8 py-3 text-center transition-colors shadow-lg shadow-primary/30"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Simpan Perubahan</button>
+                <button type="submit" class="inline-flex items-center justify-center gap-2 text-white bg-primary hover:bg-green-700 font-medium rounded-xl text-sm px-8 py-3 text-center transition-colors shadow-lg shadow-primary/30"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Simpan Perubahan</button>
                 <a href="{{ route('admin.wisata.index') }}" class="inline-flex items-center gap-2 text-slate-700 bg-slate-100 hover:bg-slate-200 font-medium rounded-xl text-sm px-5 py-2.5 transition-colors"> <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Batal</a>
             </div>
         </form>

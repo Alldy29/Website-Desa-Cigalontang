@@ -8,10 +8,22 @@ use Illuminate\Http\Request;
 
 class MitraUmkmController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mitras = MitraUmkm::withCount('umkmProducts')->latest()->get();
-        return view('admin.umkm.mitra.index', compact('mitras'));
+        $search = $request->input('search');
+        $mitras = MitraUmkm::withCount('umkmProducts')
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_mitra', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(5)
+            ->appends(['search' => $search]);
+        return view('admin.umkm.mitra.index', compact('mitras', 'search'));
+    }
+
+    public function create()
+    {
+        return view('admin.umkm.mitra.create');
     }
 
     public function store(Request $request)
@@ -29,6 +41,11 @@ class MitraUmkmController extends Controller
         ]);
 
         return redirect()->route('admin.umkm.mitra.index')->with('success', 'Mitra UMKM berhasil ditambahkan.');
+    }
+
+    public function edit(MitraUmkm $mitra)
+    {
+        return view('admin.umkm.mitra.edit', compact('mitra'));
     }
 
     public function update(Request $request, MitraUmkm $mitra)

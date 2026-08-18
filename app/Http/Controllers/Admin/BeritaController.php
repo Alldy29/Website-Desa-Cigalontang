@@ -10,10 +10,18 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $beritas = Berita::latest()->paginate(10);
-        return view('admin.berita.index', compact('beritas'));
+        $search = $request->input('search');
+        $beritas = Berita::when($search, function ($query, $search) {
+                return $query->where('judul', 'like', "%{$search}%")
+                             ->orWhere('konten', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(5)
+            ->appends(['search' => $search]);
+            
+        return view('admin.berita.index', compact('beritas', 'search'));
     }
 
     public function create()

@@ -10,20 +10,20 @@
     <!-- Quick Stats -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         
-        <div class="bg-gradient-to-br from-green-900 to-primary rounded-3xl p-6 text-white shadow-md relative overflow-hidden">
+        <div class="bg-gradient-to-br from-green-700 to-emerald-600 rounded-3xl p-6 text-white shadow-md relative overflow-hidden">
             <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
-            <p class="text-green-100 font-medium mb-1">Total Produk Dijual</p>
+            <p class="text-green-50 font-medium mb-1 text-sm">Total Produk Dijual</p>
             <h3 class="text-4xl font-black">{{ number_format($totalProduk, 0, ',', '.') }}</h3>
         </div>
 
         <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col justify-center">
-            <p class="text-gray-500 font-medium mb-1">Total Mitra Penjual (Pedagang)</p>
-            <h3 class="text-3xl font-black text-gray-900">{{ number_format($totalMitra, 0, ',', '.') }}</h3>
+            <p class="text-gray-500 text-sm font-medium mb-2">Total Mitra Penjual (Pedagang)</p>
+            <h3 class="text-3xl font-black text-primary">{{ number_format($totalMitra, 0, ',', '.') }}</h3>
         </div>
 
         <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col justify-center">
-            <p class="text-gray-500 font-medium mb-1">Jumlah Kategori Bisnis</p>
-            <h3 class="text-3xl font-black text-gray-900">{{ number_format($totalKategori, 0, ',', '.') }}</h3>
+            <p class="text-gray-500 text-sm font-medium mb-2">Jumlah Kategori Bisnis</p>
+            <h3 class="text-3xl font-black text-green-600">{{ number_format($totalKategori, 0, ',', '.') }}</h3>
         </div>
 
     </div>
@@ -43,7 +43,7 @@
                         <span class="text-sm font-bold text-gray-600">{{ $stat->umkm_products_count }} Produk ({{ $percent }}%)</span>
                     </div>
                     <div class="w-full bg-gray-100 rounded-full h-3">
-                        <div class="bg-orange-500 h-3 rounded-full" style="width: {{ $percent }}%"></div>
+                        <div class="bg-emerald-500 h-3 rounded-full" style="width: {{ $percent }}%"></div>
                     </div>
                 </div>
             @empty

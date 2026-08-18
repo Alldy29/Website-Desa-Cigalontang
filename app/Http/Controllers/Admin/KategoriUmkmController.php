@@ -9,10 +9,20 @@ use Illuminate\Support\Str;
 
 class KategoriUmkmController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kategoris = KategoriUmkm::withCount('umkmProducts')->get();
-        return view('admin.umkm.kategori.index', compact('kategoris'));
+        $search = $request->input('search');
+        $kategoris = KategoriUmkm::withCount('umkmProducts')
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_kategori', 'like', "%{$search}%");
+            })
+            ->get();
+        return view('admin.umkm.kategori.index', compact('kategoris', 'search'));
+    }
+
+    public function create()
+    {
+        return view('admin.umkm.kategori.create');
     }
 
     public function store(Request $request)
@@ -26,7 +36,7 @@ class KategoriUmkmController extends Controller
             'slug' => Str::slug($request->nama_kategori)
         ]);
 
-        return redirect()->back()->with('success', 'Kategori UMKM berhasil ditambahkan.');
+        return redirect()->route('admin.umkm.kategori.index')->with('success', 'Kategori UMKM berhasil ditambahkan.');
     }
 
     public function update(Request $request, KategoriUmkm $kategori)

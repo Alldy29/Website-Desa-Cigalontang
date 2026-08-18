@@ -11,7 +11,7 @@ class AparaturController extends Controller
 {
     public function index()
     {
-        $aparaturs = Aparatur::paginate(10);
+        $aparaturs = Aparatur::paginate(8);
         return view('admin.aparatur.index', compact('aparaturs'));
     }
 

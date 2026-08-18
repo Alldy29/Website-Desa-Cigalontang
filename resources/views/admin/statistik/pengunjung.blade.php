@@ -11,11 +11,11 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         
         <!-- Total Keseluruhan -->
-        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-6 text-white shadow-md">
-            <p class="text-gray-400 text-sm font-medium mb-2">Total Kunjungan (Selamanya)</p>
+        <div class="bg-gradient-to-br from-green-700 to-emerald-600 rounded-3xl p-6 text-white shadow-md">
+            <p class="text-green-50 text-sm font-medium mb-2">Total Kunjungan (Selamanya)</p>
             <div class="flex items-end gap-3">
                 <h3 class="text-4xl font-black">{{ number_format($totalPengunjung, 0, ',', '.') }}</h3>
-                <span class="text-gray-400 text-sm mb-1">User</span>
+                <span class="text-green-100 text-sm mb-1">User</span>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
         <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
             <p class="text-gray-500 text-sm font-medium mb-2">Kunjungan Bulan Ini</p>
             <div class="flex items-end gap-3">
-                <h3 class="text-3xl font-black text-blue-600">{{ number_format($pengunjungBulanIni, 0, ',', '.') }}</h3>
+                <h3 class="text-3xl font-black text-primary">{{ number_format($pengunjungBulanIni, 0, ',', '.') }}</h3>
                 <span class="text-gray-400 text-sm mb-1">User</span>
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
             <p class="text-gray-500 text-sm font-medium mb-2">Total Interaksi (Hits) Hari Ini</p>
             <div class="flex items-end gap-3">
-                <h3 class="text-3xl font-black text-purple-600">{{ number_format($hitsHariIni, 0, ',', '.') }}</h3>
+                <h3 class="text-3xl font-black text-emerald-500">{{ number_format($hitsHariIni, 0, ',', '.') }}</h3>
                 <span class="text-gray-400 text-sm mb-1">Klik</span>
             </div>
         </div>

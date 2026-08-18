@@ -3,7 +3,7 @@
     @section('header_title', 'Dashboard Overview')
 
     <!-- Welcome Section -->
-    <div class="mb-8 bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-8 text-white shadow-lg relative overflow-hidden">
+    <div class="mb-8 bg-gradient-to-r from-green-900 to-primary rounded-3xl p-8 text-white shadow-lg relative overflow-hidden">
         <!-- Decorative Shapes -->
         <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-2xl"></div>
         <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-white opacity-10 blur-2xl"></div>
@@ -25,7 +25,7 @@
         
         <!-- Stat Card 1 -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow group">
-            <div class="w-14 h-14 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div class="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
             </div>
             <div>
@@ -36,7 +36,7 @@
 
         <!-- Stat Card 2 -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow group">
-            <div class="w-14 h-14 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div class="w-14 h-14 rounded-full bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
             </div>
             <div>
@@ -47,7 +47,7 @@
 
         <!-- Stat Card 3 -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow group">
-            <div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div class="w-14 h-14 rounded-full bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
             </div>
             <div>
@@ -58,7 +58,7 @@
 
         <!-- Stat Card 4 -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow group">
-            <div class="w-14 h-14 rounded-full bg-purple-50 text-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div class="w-14 h-14 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             </div>
             <div>
@@ -79,26 +79,26 @@
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                     
                     @hasanyrole('superadmin|admin_desa')
-                    <a href="{{ route('admin.berita.create') }}" class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl hover:bg-slate-100 hover:text-slate-800 transition-colors border border-gray-100 group">
-                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:shadow-md transition-shadow">
-                            <svg class="w-6 h-6 text-gray-400 group-hover:text-slate-800 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    <a href="{{ route('admin.berita.create') }}" class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl hover:bg-primary/5 hover:border-primary/30 transition-all border border-gray-100 group">
+                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:shadow-md group-hover:bg-primary group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </div>
-                        <span class="text-sm font-semibold text-gray-700 group-hover:text-slate-800">Tulis Berita</span>
+                        <span class="text-sm font-semibold text-gray-700 group-hover:text-primary">Tulis Berita</span>
                     </a>
-                    <a href="{{ route('admin.galeri.create') }}" class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl hover:bg-slate-100 hover:text-slate-800 transition-colors border border-gray-100 group">
-                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:shadow-md transition-shadow">
-                            <svg class="w-6 h-6 text-gray-400 group-hover:text-slate-800 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    <a href="{{ route('admin.galeri.create') }}" class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl hover:bg-primary/5 hover:border-primary/30 transition-all border border-gray-100 group">
+                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:shadow-md group-hover:bg-primary group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         </div>
-                        <span class="text-sm font-semibold text-gray-700 group-hover:text-slate-800">Upload Galeri</span>
+                        <span class="text-sm font-semibold text-gray-700 group-hover:text-primary">Upload Galeri</span>
                     </a>
                     @endhasanyrole
 
                     @hasanyrole('superadmin|bumdes')
-                    <a href="{{ route('admin.umkm.produk.create') }}" class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl hover:bg-slate-100 hover:text-slate-800 transition-colors border border-gray-100 group">
-                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:shadow-md transition-shadow">
-                            <svg class="w-6 h-6 text-gray-400 group-hover:text-slate-800 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    <a href="{{ route('admin.umkm.produk.create') }}" class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl hover:bg-primary/5 hover:border-primary/30 transition-all border border-gray-100 group">
+                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:shadow-md group-hover:bg-primary group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                         </div>
-                        <span class="text-sm font-semibold text-gray-700 group-hover:text-slate-800">Tambah UMKM</span>
+                        <span class="text-sm font-semibold text-gray-700 group-hover:text-primary">Tambah UMKM</span>
                     </a>
                     @endhasanyrole
                     
@@ -131,7 +131,7 @@
                         @endforeach
                     </div>
                     <div class="mt-6 text-center">
-                        <a href="{{ route('admin.aspirasi.index') }}" class="text-slate-800 hover:text-slate-900 text-sm font-semibold">Lihat Semua Aspirasi &rarr;</a>
+                        <a href="{{ route('admin.aspirasi.index') }}" class="text-primary hover:text-green-700 text-sm font-semibold">Lihat Semua Aspirasi &rarr;</a>
                     </div>
                 @else
                     <!-- Empty State -->
