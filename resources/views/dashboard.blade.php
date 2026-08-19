@@ -23,6 +23,7 @@
     <!-- Quick Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         
+        @hasanyrole('superadmin|admin_desa|kepala_desa')
         <!-- Stat Card 1 -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow group">
             <div class="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -33,7 +34,9 @@
                 <h3 class="text-2xl font-bold text-gray-900">{{ number_format($totalBerita, 0, ',', '.') }}</h3>
             </div>
         </div>
+        @endhasanyrole
 
+        @hasanyrole('superadmin|bumdes|kepala_desa')
         <!-- Stat Card 2 -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow group">
             <div class="w-14 h-14 rounded-full bg-secondary/10 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -44,7 +47,9 @@
                 <h3 class="text-2xl font-bold text-gray-900">{{ number_format($totalUmkm, 0, ',', '.') }}</h3>
             </div>
         </div>
+        @endhasanyrole
 
+        @hasanyrole('superadmin|admin_desa|kepala_desa')
         <!-- Stat Card 3 -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-shadow group">
             <div class="w-14 h-14 rounded-full bg-accent/10 text-accent flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -66,6 +71,7 @@
                 <h3 class="text-2xl font-bold text-gray-900">{{ number_format($totalAspirasi, 0, ',', '.') }}</h3>
             </div>
         </div>
+        @endhasanyrole
         
     </div>
 
@@ -73,7 +79,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         <!-- Left: Quick Actions -->
-        <div class="lg:col-span-2">
+        <div class="@hasanyrole('superadmin|admin_desa|kepala_desa') lg:col-span-2 @else lg:col-span-3 @endhasanyrole">
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                 <h3 class="text-lg font-bold text-gray-900 mb-6">Akses Cepat</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -101,11 +107,21 @@
                         <span class="text-sm font-semibold text-gray-700 group-hover:text-primary">Tambah UMKM</span>
                     </a>
                     @endhasanyrole
+
+                    @hasanyrole('superadmin|kepala_desa')
+                    <a href="{{ route('admin.statistik.web') }}" class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-xl hover:bg-primary/5 hover:border-primary/30 transition-all border border-gray-100 group">
+                        <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:shadow-md group-hover:bg-primary group-hover:text-white transition-all">
+                            <svg class="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-700 group-hover:text-primary">Laporan Web</span>
+                    </a>
+                    @endhasanyrole
                     
                 </div>
             </div>
         </div>
 
+        @hasanyrole('superadmin|admin_desa|kepala_desa')
         <!-- Right: Recent Activity / Logs -->
         <div>
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full">
@@ -145,6 +161,7 @@
                 @endif
             </div>
         </div>
+        @endhasanyrole
         
     </div>
 </x-app-layout>
