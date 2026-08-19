@@ -163,4 +163,7 @@ Route::middleware(['auth', 'role:superadmin|bumdes'])->prefix('admin')->name('ad
     });
 });
 
+// Sitemap
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+
 require __DIR__.'/auth.php';

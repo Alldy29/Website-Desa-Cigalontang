@@ -8,4 +8,4 @@ Allow: /build/
 Allow: /storage/
 Allow: /images/
 
-Sitemap: /sitemap.xml
+Sitemap: https://desa-cigalontang-digital.my.id/sitemap.xml

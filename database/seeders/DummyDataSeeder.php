@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Berita;
-use App\Models\Agenda;
 use App\Models\Aparatur;
 use App\Models\Wisata;
 use App\Models\Galeri;
@@ -21,7 +20,6 @@ class DummyDataSeeder extends Seeder
     {
         \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Berita::truncate();
-        Agenda::truncate();
         Aparatur::truncate();
         Wisata::truncate();
         Galeri::truncate();
@@ -74,7 +72,6 @@ class DummyDataSeeder extends Seeder
         ]);
 
         // 2. AGENDA
-        Agenda::insert([
             [
                 'judul' => 'Rapat Persiapan Menyambut HUT RI ke-81',
                 'deskripsi' => 'Rapat persiapan perayaan kemerdekaan yang dihadiri oleh KKN LP3I Tasikmalaya, KKN UNPER, Aparatur Desa Cigalontang, dan Karang Taruna desa untuk mensukseskan acara 17 Agustus.',
