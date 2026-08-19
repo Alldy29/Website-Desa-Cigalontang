@@ -12,6 +12,7 @@
     <title>@yield('title', 'Beranda') - Desa Cigalontang</title>
     <meta name="description" content="@yield('meta_description', $settings['desa_description'] ?? 'Website Resmi Desa Cigalontang, Kecamatan Cigalontang, Kabupaten Tasikmalaya. Pusat informasi, layanan publik, berita, dan potensi desa.')">
     <meta name="keywords" content="@yield('meta_keywords', 'Desa Cigalontang, Tasikmalaya, Kecamatan Cigalontang, Berita Desa, Wisata Desa, UMKM Desa, Layanan Publik, Desa Digital')">
+    <meta name="google-site-verification" content="umORQEL11tLMUdgQIm1tsifTulOcCWrNO2qiUP3aMdY" />
     <meta name="author" content="Pemerintah Desa Cigalontang">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="{{ url()->current() }}">
