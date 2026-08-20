@@ -13,8 +13,9 @@ Route::get('/profil', function () {
     $dusuns = \App\Models\Dusun::all();
     $pendidikans = \App\Models\Demografi::where('kategori', 'pendidikan')->orderBy('jumlah', 'desc')->get();
     $pekerjaans = \App\Models\Demografi::where('kategori', 'pekerjaan')->orderBy('jumlah', 'desc')->get();
+    $apbdesList = \App\Models\Apbdes::orderBy('tahun', 'desc')->get();
     
-    return view('profil', compact('aparaturs', 'dusuns', 'pendidikans', 'pekerjaans'));
+    return view('profil', compact('aparaturs', 'dusuns', 'pendidikans', 'pekerjaans', 'apbdesList'));
 });
 
 Route::get('/berita', function () {
@@ -139,6 +140,7 @@ Route::middleware(['auth', 'role:superadmin|admin_desa'])->prefix('admin')->name
     Route::resource('dusuns', \App\Http\Controllers\Admin\DusunController::class);
     Route::resource('demografis', \App\Http\Controllers\Admin\DemografiController::class)->except(['create', 'edit', 'show']);
     Route::resource('aparatur', \App\Http\Controllers\Admin\AparaturController::class);
+    Route::resource('apbdes', \App\Http\Controllers\Admin\ApbdesController::class)->except(['show']);
     
     // Wisata
     Route::resource('wisata', \App\Http\Controllers\Admin\WisataController::class);

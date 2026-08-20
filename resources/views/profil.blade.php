@@ -39,6 +39,7 @@
                 <button @click="tab = 'peta'" :class="tab === 'peta' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'" class="whitespace-nowrap py-2.5 px-6 rounded-full text-sm font-bold transition-all duration-300">Peta Wilayah</button>
                 <button @click="tab = 'aparatur'" :class="tab === 'aparatur' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'" class="whitespace-nowrap py-2.5 px-6 rounded-full text-sm font-bold transition-all duration-300">Struktur Aparatur</button>
                 <button @click="tab = 'data-desa'" :class="tab === 'data-desa' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'" class="whitespace-nowrap py-2.5 px-6 rounded-full text-sm font-bold transition-all duration-300">Data Desa</button>
+                <button @click="tab = 'apbdes'" :class="tab === 'apbdes' ? 'bg-primary text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'" class="whitespace-nowrap py-2.5 px-6 rounded-full text-sm font-bold transition-all duration-300">APBDes</button>
             </nav>
         </div>
 
@@ -576,6 +577,62 @@
                 <h2 class="text-3xl font-bold text-gray-900" data-aos="fade-down">Data & Statistik Desa</h2>
             </div>
             @include('data-desa')
+        </div>
+
+        <!-- APBDes Section -->
+        <div x-show="tab === 'apbdes'" class="p-8 md:p-12 bg-gray-50/50" style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900" data-aos="fade-down">Anggaran Pendapatan dan Belanja Desa (APBDes)</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Transparansi pengelolaan keuangan Desa Cigalontang. Silakan pilih tahun anggaran untuk melihat infografis APBDes.</p>
+            </div>
+            
+            @if(isset($apbdesList) && $apbdesList->count() > 0)
+                <div x-data="{ 
+                    selectedTahun: '{{ $apbdesList->first()->tahun }}',
+                    apbdesData: {
+                        @foreach($apbdesList as $apbdes)
+                            '{{ $apbdes->tahun }}': '{{ Storage::url($apbdes->gambar) }}',
+                        @endforeach
+                    }
+                }" class="max-w-4xl mx-auto">
+                    
+                    <!-- Filter Tahun -->
+                    <div class="flex justify-center mb-8">
+                        <div class="inline-flex items-center bg-white rounded-xl shadow-sm border border-gray-200 p-2">
+                            <label for="tahunApbdes" class="px-4 text-sm font-semibold text-gray-600 border-r border-gray-200">Pilih Tahun Anggaran</label>
+                            <select id="tahunApbdes" x-model="selectedTahun" class="border-0 bg-transparent py-2 pl-4 pr-10 text-gray-900 font-bold focus:ring-0 cursor-pointer outline-none">
+                                @foreach($apbdesList as $apbdes)
+                                    <option value="{{ $apbdes->tahun }}">{{ $apbdes->tahun }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Gambar APBDes -->
+                    <div class="bg-white p-4 rounded-3xl shadow-lg border border-gray-100 relative group overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent pointer-events-none"></div>
+                        <!-- Transisi per tahun -->
+                        <template x-for="(url, tahun) in apbdesData" :key="tahun">
+                            <img x-show="selectedTahun == tahun" 
+                                 :src="url" 
+                                 :alt="'Infografis APBDes Tahun ' + tahun" 
+                                 x-transition:enter="transition ease-out duration-500" 
+                                 x-transition:enter-start="opacity-0 scale-95" 
+                                 x-transition:enter-end="opacity-100 scale-100" 
+                                 class="w-full h-auto rounded-2xl object-contain shadow-sm border border-gray-50 relative z-10">
+                        </template>
+                    </div>
+                </div>
+            @else
+                <!-- State Kosong -->
+                <div class="text-center py-16 bg-white rounded-3xl border border-gray-100 shadow-sm max-w-3xl mx-auto">
+                    <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Belum Ada Data APBDes</h3>
+                    <p class="text-gray-500">Data infografis Anggaran Pendapatan dan Belanja Desa belum ditambahkan oleh Admin.</p>
+                </div>
+            @endif
         </div>
         
     </div>

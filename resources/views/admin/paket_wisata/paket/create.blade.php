@@ -26,14 +26,20 @@
             </div>
 
             <div>
-                <x-input-label for="link_pemesanan" value="Link Paket Wisata (Misal: link Shopee, Traveloka, atau WA)" />
-                <x-text-input id="link_pemesanan" name="link_pemesanan" type="url" class="mt-1 block w-full" :value="old('link_pemesanan')" placeholder="Masukkan URL atau link terkait..." />
+                <x-input-label for="link_pemesanan" value="Link GitHub (URL Repositori atau Project)" />
+                <x-text-input id="link_pemesanan" name="link_pemesanan" type="url" class="mt-1 block w-full" :value="old('link_pemesanan')" placeholder="Misal: https://github.com/username/project..." />
                 <x-input-error class="mt-2" :messages="$errors->get('link_pemesanan')" />
             </div>
 
-            <div>
-                <x-input-label for="gambar" value="Foto Paket (Opsional, Maks 10MB)" />
-                <input id="gambar" name="gambar" type="file" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary\/10 file:text-primary-dark hover:file:bg-primary\/20" />
+            <div x-data="{ previewUrl: '' }">
+                <label class="block mb-2 text-sm font-medium text-gray-900">Foto Paket (Opsional, Maks 10MB)</label>
+                <template x-if="previewUrl">
+                    <div class="mb-3">
+                        <img :src="previewUrl" class="w-64 h-40 object-cover rounded-lg shadow-sm border border-gray-200">
+                    </div>
+                </template>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-xl cursor-pointer bg-gray-50 focus:outline-none p-2.5" id="gambar" name="gambar" type="file" accept="image/*" @change="previewUrl = URL.createObjectURL($event.target.files[0])">
+                <p class="mt-1 text-xs text-gray-500">Format yang didukung: JPG, JPEG, PNG. Ukuran maksimal: 10MB.</p>
                 <x-input-error class="mt-2" :messages="$errors->get('gambar')" />
             </div>
 

@@ -23,7 +23,7 @@
                         $jabatanList = [
                             'Kepala Desa', 'Sekretaris Desa', 'Kaur Tata Usaha dan Umum',
                             'Kaur Keuangan', 'Kaur Perencanaan', 'Kasi Pemerintahan',
-                            'Kasi Kesejahteraan', 'Kasi Pelayanan', 'Kepala Dusun (Kadus)',
+                            'Kasi Kesejahteraan', 'Kasi Pelayanan', 'Kepala Dusun I', 'Kepala Dusun II', 'Kepala Dusun III',
                             'Staff Desa', 'Lainnya'
                         ];
                     @endphp
