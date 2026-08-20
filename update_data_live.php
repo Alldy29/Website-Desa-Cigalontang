@@ -55,7 +55,7 @@ $aparaturData = [
 foreach ($aparaturData as $a) {
     Aparatur::updateOrCreate(
         ['jabatan' => $a['jabatan']],
-        ['nama' => $a['nama']]
+        ['nama' => $a['nama'], 'foto_url' => '']
     );
 }
 
